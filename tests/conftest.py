@@ -1,5 +1,7 @@
 """Fixtures for CHAMP integration tests."""
 
+import sys
+
 import pytest
 from homeassistant.core import HomeAssistant
 from pytest_homeassistant_custom_component.common import MockConfigEntry
