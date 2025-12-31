@@ -1,0 +1,10 @@
+# Runtime dependencies for CHAMP Home Assistant Integration
+# These are included with Home Assistant, listed here for reference
+
+# Core dependencies (provided by Home Assistant)
+# homeassistant>=2024.12.0
+# voluptuous>=0.13.1
+# aiohttp>=3.9.0
+
+# Note: When installed as a custom component, Home Assistant provides all dependencies
+# This file is mainly for documentation and IDE autocomplete support

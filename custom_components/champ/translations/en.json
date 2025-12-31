@@ -1,0 +1,65 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Set up CHAMP",
+        "description": "Welcome to CHAMP - Chores And Motivation Package! This integration helps gamify household tasks for your children.\n\nLet's get started by adding your children and their tasks.\n\nLearn more at: {docs_url}"
+      },
+      "add_child": {
+        "title": "Add a Child",
+        "description": "Add a child to CHAMP. You can add multiple children.",
+        "data": {
+          "name": "Child's Name",
+          "age": "Age (optional)",
+          "icon": "Icon (mdi:icon-name)"
+        }
+      },
+      "add_another_child": {
+        "title": "Add Another Child?",
+        "description": "You have added {children_count} child(ren): {children_names}\n\nWould you like to add another child?",
+        "data": {
+          "add_another": "Add another child"
+        }
+      },
+      "add_task": {
+        "title": "Add a Task",
+        "description": "Create tasks that children can complete to earn points.",
+        "data": {
+          "name": "Task Name",
+          "points": "Points Awarded",
+          "icon": "Icon (mdi:icon-name)",
+          "category": "Category"
+        }
+      },
+      "add_another_task": {
+        "title": "Add Another Task?",
+        "description": "You have added {tasks_count} task(s).\n\nWould you like to add another task?",
+        "data": {
+          "add_another": "Add another task"
+        }
+      },
+      "level_config": {
+        "title": "Configure Level Progression",
+        "description": "Set how many points are required for each level.",
+        "data": {
+          "points_per_level": "Points Per Level"
+        }
+      }
+    },
+    "error": {
+      "name_required": "Name is required",
+      "invalid_points": "Points must be greater than 0"
+    },
+    "abort": {
+      "already_configured": "CHAMP is already configured"
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Modify CHAMP Configuration",
+        "description": "Update your CHAMP settings (coming in Phase 2)"
+      }
+    }
+  }
+}

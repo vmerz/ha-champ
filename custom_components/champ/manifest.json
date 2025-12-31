@@ -1,0 +1,12 @@
+{
+  "domain": "champ",
+  "name": "CHAMP - Chores And Motivation Package",
+  "codeowners": ["@vmerz"],
+  "config_flow": true,
+  "dependencies": [],
+  "documentation": "https://github.com/vmerz/ha-champ",
+  "integration_type": "device",
+  "iot_class": "calculated",
+  "requirements": [],
+  "version": "0.1.0"
+}

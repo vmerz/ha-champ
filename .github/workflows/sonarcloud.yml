@@ -1,0 +1,51 @@
+name: SonarCloud Analysis
+
+# SETUP REQUIRED:
+# 1. Go to https://sonarcloud.io and sign in with GitHub
+# 2. Import your repository
+# 3. Copy the SONAR_TOKEN from SonarCloud
+# 4. Add SONAR_TOKEN to GitHub Secrets:
+#    Settings → Secrets and variables → Actions → New repository secret
+# 5. Update sonar-project.properties with your project key and organization
+# 6. Uncomment this workflow (remove these comments and enable in GitHub)
+
+# Uncomment below when ready:
+# on:
+#   push:
+#     branches: [ main, develop ]
+#   pull_request:
+#     branches: [ main ]
+
+# jobs:
+#   sonarcloud:
+#     name: SonarCloud Code Analysis
+#     runs-on: ubuntu-latest
+#     
+#     steps:
+#       - name: Checkout code
+#         uses: actions/checkout@v4
+#         with:
+#           fetch-depth: 0  # Full history for better analysis
+#       
+#       - name: Set up Python
+#         uses: actions/setup-python@v5
+#         with:
+#           python-version: '3.12'
+#       
+#       - name: Install dependencies
+#         run: |
+#           pip install --upgrade pip
+#           pip install -r requirements-dev.txt
+#       
+#       - name: Run tests with coverage
+#         run: |
+#           pytest --cov=custom_components/champ --cov-report=xml
+#       
+#       - name: SonarCloud Scan
+#         uses: SonarSource/sonarcloud-github-action@master
+#         env:
+#           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+# NOTE: This workflow is disabled by default.
+# Follow the setup instructions above, then uncomment the workflow.

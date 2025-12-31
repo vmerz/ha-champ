@@ -1,0 +1,65 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "CHAMP einrichten",
+        "description": "Willkommen bei CHAMP - Chores And Motivation Package! Diese Integration hilft, Haushaltsaufgaben für Ihre Kinder spielerisch zu gestalten.\n\nLassen Sie uns beginnen, indem wir Ihre Kinder und deren Aufgaben hinzufügen.\n\nMehr erfahren: {docs_url}"
+      },
+      "add_child": {
+        "title": "Kind hinzufügen",
+        "description": "Fügen Sie ein Kind zu CHAMP hinzu. Sie können mehrere Kinder hinzufügen.",
+        "data": {
+          "name": "Name des Kindes",
+          "age": "Alter (optional)",
+          "icon": "Symbol (mdi:symbol-name)"
+        }
+      },
+      "add_another_child": {
+        "title": "Weiteres Kind hinzufügen?",
+        "description": "Sie haben {children_count} Kind(er) hinzugefügt: {children_names}\n\nMöchten Sie ein weiteres Kind hinzufügen?",
+        "data": {
+          "add_another": "Weiteres Kind hinzufügen"
+        }
+      },
+      "add_task": {
+        "title": "Aufgabe hinzufügen",
+        "description": "Erstellen Sie Aufgaben, die Kinder erledigen können, um Punkte zu verdienen.",
+        "data": {
+          "name": "Aufgabenname",
+          "points": "Vergebene Punkte",
+          "icon": "Symbol (mdi:symbol-name)",
+          "category": "Kategorie"
+        }
+      },
+      "add_another_task": {
+        "title": "Weitere Aufgabe hinzufügen?",
+        "description": "Sie haben {tasks_count} Aufgabe(n) hinzugefügt.\n\nMöchten Sie eine weitere Aufgabe hinzufügen?",
+        "data": {
+          "add_another": "Weitere Aufgabe hinzufügen"
+        }
+      },
+      "level_config": {
+        "title": "Level-Fortschritt konfigurieren",
+        "description": "Legen Sie fest, wie viele Punkte für jedes Level erforderlich sind.",
+        "data": {
+          "points_per_level": "Punkte pro Level"
+        }
+      }
+    },
+    "error": {
+      "name_required": "Name ist erforderlich",
+      "invalid_points": "Punkte müssen größer als 0 sein"
+    },
+    "abort": {
+      "already_configured": "CHAMP ist bereits konfiguriert"
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "CHAMP-Konfiguration ändern",
+        "description": "Aktualisieren Sie Ihre CHAMP-Einstellungen (kommt in Phase 2)"
+      }
+    }
+  }
+}

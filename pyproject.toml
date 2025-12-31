@@ -1,0 +1,140 @@
+[build-system]
+requires = ["setuptools>=68.0.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ha-champ"
+version = "0.1.0"
+description = "CHAMP - Chores And Motivation Package for Home Assistant"
+readme = "README.md"
+authors = [
+    {name = "Vincent", email = "mymail@example.com"}
+]
+license = {text = "MIT"}
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: End Users/Desktop",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Home Automation",
+]
+requires-python = ">=3.11"
+
+[project.urls]
+Homepage = "https://github.com/vmerz/ha-champ"
+Documentation = "https://github.com/vmerz/ha-champ/blob/main/README.md"
+Repository = "https://github.com/vmerz/ha-champ"
+Issues = "https://github.com/vmerz/ha-champ/issues"
+
+# Black configuration
+[tool.black]
+line-length = 88
+target-version = ['py311']
+include = '\.pyi?$'
+exclude = '''
+/(
+    \.eggs
+  | \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | _build
+  | buck-out
+  | build
+  | dist
+)/
+'''
+
+# Ruff configuration
+[tool.ruff]
+line-length = 88
+target-version = "py311"
+
+[tool.ruff.lint]
+select = [
+    "E",  # pycodestyle errors
+    "W",  # pycodestyle warnings
+    "F",  # pyflakes
+    # "I",  # isort - DISABLED: using isort separately
+    "C",  # flake8-comprehensions
+    "B",  # flake8-bugbear
+]
+ignore = [
+    "E501",  # line too long (handled by black)
+    "B008",  # do not perform function calls in argument defaults
+    "C901",  # too complex
+    "I001",  # Import block is un-sorted (handled by isort)
+]
+
+[tool.ruff.lint.per-file-ignores]
+"__init__.py" = ["F401"]
+
+# MyPy configuration
+[tool.mypy]
+python_version = "3.12"
+platform = "darwin"
+show_error_codes = true
+follow_imports = "skip"
+ignore_missing_imports = true
+strict_equality = true
+warn_incomplete_stub = true
+warn_redundant_casts = true
+warn_unused_configs = true
+warn_unused_ignores = false
+check_untyped_defs = false
+disallow_incomplete_defs = false
+disallow_subclassing_any = false
+disallow_untyped_calls = false
+disallow_untyped_decorators = false
+disallow_untyped_defs = false
+no_implicit_optional = true
+warn_return_any = false
+
+# Only check our code, not dependencies
+exclude = [
+    'venv/',
+    '.venv/',
+    'build/',
+    'dist/',
+]
+
+# Don't follow imports into libraries
+[[tool.mypy.overrides]]
+module = [
+    "homeassistant.*",
+    "pytest_homeassistant_custom_component.*",
+]
+ignore_missing_imports = true
+follow_imports = "skip"
+
+# Pytest configuration
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = "test_*.py"
+python_classes = "Test*"
+python_functions = "test_*"
+addopts = "-v --cov=custom_components/champ --cov-report=html --cov-report=term-missing"
+asyncio_mode = "auto"
+
+# Coverage configuration
+[tool.coverage.run]
+source = ["custom_components/champ"]
+omit = [
+    "tests/*",
+    "*/__pycache__/*",
+]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "if __name__ == .__main__.:",
+    "if TYPE_CHECKING:",
+    "class .*\\bProtocol\\):",
+    "@(abc\\.)?abstractmethod",
+]
