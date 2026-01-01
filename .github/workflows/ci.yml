@@ -117,8 +117,10 @@ jobs:
       - name: Install dependencies
         run: |
           pip install --upgrade pip
-          # Install Home Assistant (required for tests)
+          # Install Home Assistant
           pip install homeassistant
+          # Install pytest-homeassistant-custom-component
+          pip install pytest-homeassistant-custom-component || pip install git+https://github.com/MatthewFlamm/pytest-homeassistant-custom-component.git
           # Install other dev dependencies
           pip install -r requirements-dev.txt
 
