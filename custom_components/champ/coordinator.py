@@ -10,9 +10,16 @@ from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
 
-from .const import (CONF_CHILD_ID, CONF_CHILDREN, CONF_LEVEL_CONFIG,
-                    CONF_POINTS_PER_LEVEL, CONF_TASKS,
-                    DEFAULT_POINTS_PER_LEVEL, DOMAIN, UPDATE_INTERVAL)
+from .const import (
+    CONF_CHILD_ID,
+    CONF_CHILDREN,
+    CONF_LEVEL_CONFIG,
+    CONF_POINTS_PER_LEVEL,
+    CONF_TASKS,
+    DEFAULT_POINTS_PER_LEVEL,
+    DOMAIN,
+    UPDATE_INTERVAL,
+)
 
 _LOGGER = logging.getLogger(__name__)
 

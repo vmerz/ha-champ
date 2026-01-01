@@ -10,8 +10,13 @@ from homeassistant.const import Platform
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers import config_validation as cv
 
-from .const import (CONF_CHILDREN, CONF_LEVEL_CONFIG, CONF_TASKS,
-                    DEFAULT_POINTS_PER_LEVEL, DOMAIN)
+from .const import (
+    CONF_CHILDREN,
+    CONF_LEVEL_CONFIG,
+    CONF_TASKS,
+    DEFAULT_POINTS_PER_LEVEL,
+    DOMAIN,
+)
 from .coordinator import ChampDataCoordinator
 
 _LOGGER = logging.getLogger(__name__)

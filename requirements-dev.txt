@@ -1,7 +1,14 @@
 # Development dependencies for CHAMP
 
 # Home Assistant for testing and autocomplete
-homeassistant>=2024.12.0
+# homeassistant>=2024.12.0  # Commented: Not available on PyPI for Python 3.12
+# Note: For local dev, install manually: pip install homeassistant --break-system-packages
+
+# Core HA dependencies (for type hints and CI)
+voluptuous>=0.13.1
+aiohttp>=3.9.0
+pyyaml>=6.0
+jinja2>=3.1.0
 
 # Code Quality
 black>=23.0.0          # Code formatter
@@ -12,7 +19,7 @@ isort>=5.12.0         # Import sorter
 # Testing
 pytest>=7.4.0
 pytest-asyncio>=0.21.0
-pytest-homeassistant-custom-component>=0.13.0
+# pytest-homeassistant-custom-component>=0.13.0  # Commented: Not on PyPI
 pytest-cov>=4.1.0
 
 # Development tools

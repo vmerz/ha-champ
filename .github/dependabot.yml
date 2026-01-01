@@ -8,6 +8,7 @@ updates:
       day: "monday"
       time: "09:00"
     open-pull-requests-limit: 5
+    target-branch: "develop"
     labels:
       - "dependencies"
       - "python"
@@ -27,6 +28,7 @@ updates:
       day: "monday"
       time: "09:00"
     open-pull-requests-limit: 5
+    target-branch: "develop"
     labels:
       - "dependencies"
       - "github-actions"
