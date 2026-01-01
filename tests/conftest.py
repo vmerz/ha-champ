@@ -6,9 +6,13 @@ import pytest
 from homeassistant.core import HomeAssistant
 from pytest_homeassistant_custom_component.common import MockConfigEntry
 
-from custom_components.champ.const import (CONF_CHILDREN, CONF_LEVEL_CONFIG,
-                                           CONF_POINTS_PER_LEVEL, CONF_TASKS,
-                                           DOMAIN)
+from custom_components.champ.const import (
+    CONF_CHILDREN,
+    CONF_LEVEL_CONFIG,
+    CONF_POINTS_PER_LEVEL,
+    CONF_TASKS,
+    DOMAIN,
+)
 
 
 # This fixture enables loading custom integrations in all tests

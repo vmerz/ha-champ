@@ -12,8 +12,15 @@ from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 
-from .const import (CONF_CHILD_NAME, CONF_TASK_ASSIGNED_TO, CONF_TASK_ICON,
-                    CONF_TASK_ID, CONF_TASK_NAME, CONF_TASK_POINTS, DOMAIN)
+from .const import (
+    CONF_CHILD_NAME,
+    CONF_TASK_ASSIGNED_TO,
+    CONF_TASK_ICON,
+    CONF_TASK_ID,
+    CONF_TASK_NAME,
+    CONF_TASK_POINTS,
+    DOMAIN,
+)
 from .coordinator import ChampDataCoordinator
 
 _LOGGER = logging.getLogger(__name__)

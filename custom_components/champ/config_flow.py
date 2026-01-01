@@ -11,13 +11,27 @@ from homeassistant import config_entries
 from homeassistant.core import callback
 from homeassistant.data_entry_flow import FlowResult
 
-from .const import (CONF_CHILD_AGE, CONF_CHILD_ICON, CONF_CHILD_ID,
-                    CONF_CHILD_NAME, CONF_CHILDREN, CONF_LEVEL_CONFIG,
-                    CONF_POINTS_PER_LEVEL, CONF_TASK_ASSIGNED_TO,
-                    CONF_TASK_CATEGORY, CONF_TASK_ICON, CONF_TASK_ID,
-                    CONF_TASK_NAME, CONF_TASK_POINTS, CONF_TASKS,
-                    DEFAULT_CHILD_ICON, DEFAULT_POINTS_PER_LEVEL,
-                    DEFAULT_TASK_ICON, DOMAIN, TASK_CATEGORIES)
+from .const import (
+    CONF_CHILD_AGE,
+    CONF_CHILD_ICON,
+    CONF_CHILD_ID,
+    CONF_CHILD_NAME,
+    CONF_CHILDREN,
+    CONF_LEVEL_CONFIG,
+    CONF_POINTS_PER_LEVEL,
+    CONF_TASK_ASSIGNED_TO,
+    CONF_TASK_CATEGORY,
+    CONF_TASK_ICON,
+    CONF_TASK_ID,
+    CONF_TASK_NAME,
+    CONF_TASK_POINTS,
+    CONF_TASKS,
+    DEFAULT_CHILD_ICON,
+    DEFAULT_POINTS_PER_LEVEL,
+    DEFAULT_TASK_ICON,
+    DOMAIN,
+    TASK_CATEGORIES,
+)
 
 _LOGGER = logging.getLogger(__name__)
 
