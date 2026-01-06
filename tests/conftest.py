@@ -3,10 +3,6 @@
 import sys
 from pathlib import Path
 
-# Add project root to path
-project_root = Path(__file__).parent.parent
-sys.path.insert(0, str(project_root))
-
 import pytest
 from homeassistant.core import HomeAssistant
 from pytest_homeassistant_custom_component.common import MockConfigEntry
@@ -28,6 +24,10 @@ from custom_components.champ.const import (
     CONF_TASKS,
     DOMAIN,
 )
+
+# Add project root to path
+project_root = Path(__file__).parent.parent
+sys.path.insert(0, str(project_root))
 
 
 # This fixture is provided by pytest-homeassistant-custom-component
