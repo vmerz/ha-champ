@@ -59,7 +59,7 @@ Settings → System → Logs → Filter by "champ"
 <summary>Click to expand configuration</summary>
 
 ```yaml
-# Number of children: 
+# Number of members: 
 # Number of tasks: 
 # Any custom settings: 
 ```

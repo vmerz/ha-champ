@@ -3,32 +3,35 @@
     "step": {
       "user": {
         "title": "CHAMP einrichten",
-        "description": "Willkommen bei CHAMP - Chores And Motivation Package! Diese Integration hilft, Haushaltsaufgaben für Ihre Kinder spielerisch zu gestalten.\n\nLassen Sie uns beginnen, indem wir Ihre Kinder und deren Aufgaben hinzufügen.\n\nMehr erfahren: {docs_url}"
+        "description": "Willkommen bei CHAMP - Chores And Motivation Package! Diese Integration hilft, Aufgaben spielerisch zu gestalten.\n\nStarten wir mit dem Hinzufügen von Personen und deren Aufgaben.\n\nMehr erfahren: {docs_url}"
       },
-      "add_child": {
-        "title": "Kind hinzufügen",
-        "description": "Fügen Sie ein Kind zu CHAMP hinzu. Sie können mehrere Kinder hinzufügen.",
+      "add_member": {
+        "title": "Person hinzufügen",
+        "description": "Fügen Sie eine Person zu CHAMP hinzu. Sie können mehrere Personen hinzufügen.",
         "data": {
-          "name": "Name des Kindes",
-          "age": "Alter (optional)",
-          "icon": "Symbol (mdi:symbol-name)"
+          "member_name": "Name",
+          "member_birthdate": "Geburtsdatum (optional)",
+          "member_icon": "Symbol (mdi:symbol-name)"
         }
       },
-      "add_another_child": {
-        "title": "Weiteres Kind hinzufügen?",
-        "description": "Sie haben {children_count} Kind(er) hinzugefügt: {children_names}\n\nMöchten Sie ein weiteres Kind hinzufügen?",
+      "add_another_member": {
+        "title": "Weitere Person hinzufügen?",
+        "description": "Sie haben {members_count} Person(en) hinzugefügt: {members_names}\n\nMöchten Sie eine weitere Person hinzufügen?",
         "data": {
-          "add_another": "Weiteres Kind hinzufügen"
+          "add_another": "Weitere Person hinzufügen"
         }
       },
       "add_task": {
         "title": "Aufgabe hinzufügen",
-        "description": "Erstellen Sie Aufgaben, die Kinder erledigen können, um Punkte zu verdienen.",
+        "description": "Neue Aufgabe mit Punktwert erstellen",
         "data": {
-          "name": "Aufgabenname",
-          "points": "Vergebene Punkte",
-          "icon": "Symbol (mdi:symbol-name)",
-          "category": "Kategorie"
+          "task_name": "Aufgabenname",
+          "task_points": "Punkte",
+          "task_icon": "Symbol",
+          "task_category": "Kategorie"
+        },
+        "data_description": {
+          "task_category": "Art der Aufgabe"
         }
       },
       "add_another_task": {
@@ -52,6 +55,16 @@
     },
     "abort": {
       "already_configured": "CHAMP ist bereits konfiguriert"
+    }
+  },
+  "selector": {
+    "task_category": {
+      "options": {
+        "chores": "Haushalt",
+        "learning": "Lernen & Bildung",
+        "health": "Gesundheit & Wohlbefinden",
+        "other": "Sonstiges"
+      }
     }
   },
   "options": {

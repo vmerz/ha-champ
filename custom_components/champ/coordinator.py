@@ -11,9 +11,9 @@ from homeassistant.core import HomeAssistant
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
 
 from .const import (
-    CONF_CHILD_ID,
-    CONF_CHILDREN,
     CONF_LEVEL_CONFIG,
+    CONF_MEMBER_ID,
+    CONF_MEMBERS,
     CONF_POINTS_PER_LEVEL,
     CONF_TASKS,
     DEFAULT_POINTS_PER_LEVEL,
@@ -37,24 +37,24 @@ class ChampDataCoordinator(DataUpdateCoordinator[dict[str, Any]]):
         )
         self.config_entry = entry
 
-        # Initialize child data from config entry
-        self._init_child_data()
+        # Initialize member data from config entry
+        self._init_member_data()
 
-    def _init_child_data(self) -> None:
-        """Initialize child data structure."""
-        children_data = {}
+    def _init_member_data(self) -> None:
+        """Initialize member data structure."""
+        members_data = {}
 
-        for child in self.config_entry.data.get(CONF_CHILDREN, []):
-            child_id = child[CONF_CHILD_ID]
-            children_data[child_id] = {
+        for member in self.config_entry.data.get(CONF_MEMBERS, []):
+            member_id = member[CONF_MEMBER_ID]
+            members_data[member_id] = {
                 "points": 0,  # Will be loaded from state if available
                 "level": 0,
                 "points_to_next_level": self._get_points_per_level(),
-                "config": child,
+                "config": member,
             }
 
         self.data = {
-            "children": children_data,
+            "members": members_data,
             "tasks": self.config_entry.data.get(CONF_TASKS, []),
             "level_config": self.config_entry.data.get(
                 CONF_LEVEL_CONFIG, {CONF_POINTS_PER_LEVEL: DEFAULT_POINTS_PER_LEVEL}
@@ -66,60 +66,60 @@ class ChampDataCoordinator(DataUpdateCoordinator[dict[str, Any]]):
         level_config = self.config_entry.data.get(CONF_LEVEL_CONFIG, {})
         return level_config.get(CONF_POINTS_PER_LEVEL, DEFAULT_POINTS_PER_LEVEL)
 
-    def get_child_points(self, child_id: str) -> int:
-        """Get current points for a child."""
-        return self.data["children"].get(child_id, {}).get("points", 0)
+    def get_member_points(self, member_id: str) -> int:
+        """Get current points for a member."""
+        return self.data["members"].get(member_id, {}).get("points", 0)
 
-    def get_child_level(self, child_id: str) -> int:
-        """Calculate current level for a child."""
-        points = self.get_child_points(child_id)
+    def get_member_level(self, member_id: str) -> int:
+        """Calculate current level for a member."""
+        points = self.get_member_points(member_id)
         points_per_level = self._get_points_per_level()
         return points // points_per_level
 
-    def get_points_to_next_level(self, child_id: str) -> int:
+    def get_points_to_next_level(self, member_id: str) -> int:
         """Calculate points needed for next level."""
-        points = self.get_child_points(child_id)
+        points = self.get_member_points(member_id)
         points_per_level = self._get_points_per_level()
         return points_per_level - (points % points_per_level)
 
-    async def award_points(self, child_id: str, points: int) -> None:
-        """Award points to a child."""
-        if child_id not in self.data["children"]:
-            _LOGGER.error("Child ID %s not found", child_id)
+    async def award_points(self, member_id: str, points: int) -> None:
+        """Award points to a member."""
+        if member_id not in self.data["members"]:
+            _LOGGER.error("Member ID %s not found", member_id)
             return
 
-        current_points = self.data["children"][child_id]["points"]
+        current_points = self.data["members"][member_id]["points"]
         new_points = current_points + points
 
-        self.data["children"][child_id]["points"] = new_points
-        self.data["children"][child_id]["level"] = self.get_child_level(child_id)
-        self.data["children"][child_id]["points_to_next_level"] = (
-            self.get_points_to_next_level(child_id)
+        self.data["members"][member_id]["points"] = new_points
+        self.data["members"][member_id]["level"] = self.get_member_level(member_id)
+        self.data["members"][member_id]["points_to_next_level"] = (
+            self.get_points_to_next_level(member_id)
         )
 
         _LOGGER.debug(
             "Awarded %d points to %s. New total: %d",
             points,
-            child_id,
+            member_id,
             new_points,
         )
 
         # Notify all listeners
         await self.async_refresh()
 
-    async def reset_points(self, child_id: str) -> None:
-        """Reset points for a child."""
-        if child_id not in self.data["children"]:
-            _LOGGER.error("Child ID %s not found", child_id)
+    async def reset_points(self, member_id: str) -> None:
+        """Reset points for a member."""
+        if member_id not in self.data["members"]:
+            _LOGGER.error("Member ID %s not found", member_id)
             return
 
-        self.data["children"][child_id]["points"] = 0
-        self.data["children"][child_id]["level"] = 0
-        self.data["children"][child_id][
+        self.data["members"][member_id]["points"] = 0
+        self.data["members"][member_id]["level"] = 0
+        self.data["members"][member_id][
             "points_to_next_level"
         ] = self._get_points_per_level()
 
-        _LOGGER.info("Reset points for child %s", child_id)
+        _LOGGER.info("Reset points for member %s", member_id)
 
         # Notify all listeners
         await self.async_refresh()

@@ -46,12 +46,12 @@ Wait for Home Assistant to come back online.
 
 Follow the prompts:
 
-#### Add Children
-- Enter child's name
-- Optionally add age
-- Choose icon (default: `mdi:account-child`)
+#### Add members
+- Enter member's name
+- Optionally add birthdate
+- Choose icon (default: `mdi:account-member`)
 - Click **Submit**
-- Add more children or click **Done**
+- Add more members or click **Done**
 
 #### Add Tasks
 - Task name (e.g., "Empty Dishwasher")
@@ -67,11 +67,11 @@ Follow the prompts:
 
 ### Step 5: Complete!
 
-CHAMP creates entities for each child:
-- `sensor.champ_{child}_points`
-- `sensor.champ_{child}_level`
-- `sensor.champ_{child}_points_to_next_level`
-- `switch.champ_{child}_{task}` (for each task)
+CHAMP creates entities for each member:
+- `sensor.champ_{member}_points`
+- `sensor.champ_{member}_level`
+- `sensor.champ_{member}_points_to_next_level`
+- `switch.champ_{member}_{task}` (for each task)
 
 ---
 
@@ -87,7 +87,7 @@ CHAMP creates entities for each child:
 
 **Method 2: Via Devices & Services**
 1. **Settings** → **Devices & Services** → **CHAMP**
-2. Click on child's device
+2. Click on member's device
 3. Toggle task switches
 
 ### Viewing Progress
@@ -128,7 +128,7 @@ Settings → System → Logs → Filter: "champ"
 **Problem**: Error during configuration
 
 **Solutions**:
-1. Ensure child name is not empty
+1. Ensure member name is not empty
 2. Ensure task name is not empty
 3. Verify point values are positive numbers
 4. Check Home Assistant logs for details
@@ -202,7 +202,7 @@ Then restart Home Assistant and check logs for detailed information.
 
 ### Configuration Preservation
 
-Your configuration (children, tasks, points) is stored in Home Assistant's database and survives updates.
+Your configuration (members, tasks, points) is stored in Home Assistant's database and survives updates.
 
 ---
 
@@ -243,7 +243,7 @@ If problems persist, create an issue with:
 
 ## Next Steps
 
-- **Create dashboards** for your children
+- **Create dashboards** for your members
 - **Customize notifications** (coming in Phase 2)
 - **Set up rewards** (coming in Phase 2)
 - **Track progress** over time
