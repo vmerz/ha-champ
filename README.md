@@ -6,18 +6,18 @@
 [![Python](https://img.shields.io/badge/python-3.11+-blue.svg)]()
 [![Home Assistant](https://img.shields.io/badge/Home%20Assistant-2024.12+-blue.svg)]()
 
-**Turn chores into achievements, make every kid a CHAMP!** 🏆
+**Turn chores into achievements, make everyone a CHAMP!** 🏆
 
 ---
 
 ## What is CHAMP?
 
-CHAMP gamifies household chores and learning tasks for members through Home Assistant. Kids earn points for completing tasks, level up, and parents get an overview of all progress.
+CHAMP gamifies household chores and learning tasks for members through Home Assistant. Members earn points for completing tasks and level up.
 
 ### Features
 
 ✅ **Points & Levels** - Earn points, gain levels  
-✅ **Multiple members** - Support for 1-8+ kids  
+✅ **Multiple members** - Support for 1-8+ members  
 ✅ **Custom Tasks** - Any task, any point value  
 ✅ **UI Configuration** - No YAML needed  
 ✅ **Auto Notifications** - Celebrate achievements  
