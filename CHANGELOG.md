@@ -21,18 +21,53 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Parent approval workflow
 - Task scheduling
 
-## [0.1.0] - 2024-12-28
+## [0.2.0] - 2025-01-07
+
+### Breaking Changes
+- Renamed "children" to "members" throughout the integration
+- Entity IDs changed: `champ_{child}_*` → `champ_{member}_*`
+- Changed "age" field to "birthdate" (YYYY-MM-DD date format)
+- Existing users must remove and re-add the integration
+
+### Added
+- Date selector for member birthdate (optional)
+- Automatic age calculation from birthdate
+- Icon selector (visual picker) for member and task icons
+- Translated category selector for tasks
+- Integration icon in Home Assistant UI
+- Birthdate validation (no future dates, reasonable range)
+- Age display in entity attributes
+- Python 3.13 support
+
+### Changed
+- Generalized terminology: "children" → "members" (works for all ages)
+- Improved UI selectors for better user experience
+- Enhanced translations (English and German)
+- Updated documentation for terminology changes
+
+### Fixed
+- Config flow validation logic
+- Test suite with proper pytest fixtures
+- CI configuration for Python 3.13
+- Import formatting conflicts between Black and isort
+
+### Documentation
+- Added CREDITS.md for icon attribution
+- Updated README with credits section
+- Consolidated documentation structure
+- 
+## [0.1.0] - 2025-12-28
 
 ### Added - Phase 1 Complete ✅
 - Initial release of CHAMP integration
 - UI-based configuration flow (no YAML needed)
-- Multi-step setup wizard for children and tasks
-- Support for multiple children (1-8+)
+- Multi-step setup wizard for members and tasks
+- Support for multiple members (1-8+)
 - Dynamic entity creation based on configuration
 - Sensor entities:
-  - Points tracking per child
-  - Level calculation per child
-  - Progress to next level per child
+  - Points tracking per member
+  - Level calculation per member
+  - Progress to next level per member
 - Switch entities for tasks:
   - Auto-award points on toggle
   - Auto-turn off after 2 seconds (visual feedback)
@@ -42,7 +77,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - English (en)
   - German (de)
 - Data coordinator for efficient state management
-- Device grouping (all child entities grouped together)
+- Device grouping (all member entities grouped together)
 - Proper entity registry integration
 - State persistence across restarts
 - Reload support without restart
@@ -67,11 +102,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Config flow implementation
 - Proper error handling and logging
 
-## [0.0.1] - 2024-12-XX
+## [0.0.1] - 2025-12-26
 
 ### Initial Development
 - Proof of concept YAML package
-- Basic point system for 2 children
+- Basic point system for 2 members
 - 7 task types with fixed point values
 - Manual YAML configuration
 - Input number and boolean entities
@@ -117,7 +152,7 @@ The new component completely replaces the YAML package. To migrate:
    - Settings → Devices & Services → Add Integration → CHAMP
    - Follow the setup wizard
 
-6. **Recreate your children and tasks** in the UI wizard
+6. **Recreate your members and tasks** in the UI wizard
 
 7. **Note:** Entity IDs will change:
    - Old: `input_number.john_points`

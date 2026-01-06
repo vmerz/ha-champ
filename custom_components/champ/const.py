@@ -4,16 +4,16 @@
 DOMAIN = "champ"
 
 # Configuration and options
-CONF_CHILDREN = "children"
 CONF_TASKS = "tasks"
 CONF_LEVEL_CONFIG = "level_config"
 CONF_REWARDS = "rewards"
 
-# Child configuration
-CONF_CHILD_ID = "id"
-CONF_CHILD_NAME = "name"
-CONF_CHILD_AGE = "age"
-CONF_CHILD_ICON = "icon"
+# Member configuration
+CONF_MEMBERS = "members"
+CONF_MEMBER_NAME = "member_name"
+CONF_MEMBER_ID = "member_id"
+CONF_MEMBER_BIRTHDATE = "member_birthdate"
+CONF_MEMBER_ICON = "member_icon"
 
 # Task configuration
 CONF_TASK_ID = "id"
@@ -36,7 +36,7 @@ CONF_REWARD_APPROVAL_REQUIRED = "approval_required"
 # Defaults
 DEFAULT_POINTS_PER_LEVEL = 50
 DEFAULT_TASK_ICON = "mdi:checkbox-marked-circle"
-DEFAULT_CHILD_ICON = "mdi:account-child"
+DEFAULT_MEMBER_ICON = "mdi:account-member"
 
 # Task categories
 TASK_CATEGORY_CHORES = "chores"
@@ -58,16 +58,16 @@ SERVICE_COMPLETE_TASK = "complete_task"
 SERVICE_GENERATE_DASHBOARD = "generate_dashboard"
 
 # Attributes
-ATTR_CHILD_ID = "child_id"
+ATTR_MEMBER_ID = "member_id"
 ATTR_POINTS = "points"
 ATTR_TASK_ID = "task_id"
 ATTR_DASHBOARD_TYPE = "dashboard_type"
 
 # Entity ID formats
-SENSOR_POINTS = "{domain}_{child_id}_points"
-SENSOR_LEVEL = "{domain}_{child_id}_level"
-SENSOR_POINTS_TO_NEXT = "{domain}_{child_id}_points_to_next_level"
-SWITCH_TASK = "{domain}_{child_id}_{task_id}"
+SENSOR_POINTS = "{domain}_{member_id}_points"
+SENSOR_LEVEL = "{domain}_{member_id}_level"
+SENSOR_POINTS_TO_NEXT = "{domain}_{member_id}_points_to_next_level"
+SWITCH_TASK = "{domain}_{member_id}_{task_id}"
 
 # Update interval (in seconds)
 UPDATE_INTERVAL = 30

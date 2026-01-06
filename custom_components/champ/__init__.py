@@ -11,8 +11,8 @@ from homeassistant.core import HomeAssistant
 from homeassistant.helpers import config_validation as cv
 
 from .const import (
-    CONF_CHILDREN,
     CONF_LEVEL_CONFIG,
+    CONF_MEMBERS,
     CONF_TASKS,
     DEFAULT_POINTS_PER_LEVEL,
     DOMAIN,
@@ -39,8 +39,8 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     _LOGGER.debug("Setting up CHAMP integration for entry: %s", entry.entry_id)
 
     # Validate config data
-    if not entry.data.get(CONF_CHILDREN):
-        _LOGGER.warning("No children configured in CHAMP")
+    if not entry.data.get(CONF_MEMBERS):
+        _LOGGER.warning("No member configured in CHAMP")
         return False
 
     # Create coordinator
@@ -57,8 +57,8 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     await async_setup_services(hass)
 
     _LOGGER.info(
-        "CHAMP setup complete with %d children and %d tasks",
-        len(entry.data.get(CONF_CHILDREN, [])),
+        "CHAMP setup complete with %d members and %d tasks",
+        len(entry.data.get(CONF_MEMBERS, [])),
         len(entry.data.get(CONF_TASKS, [])),
     )
 

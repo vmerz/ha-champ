@@ -4,20 +4,22 @@ from __future__ import annotations
 
 import logging
 import uuid
+from datetime import date, datetime
 from typing import Any
 
 import voluptuous as vol
 from homeassistant import config_entries
 from homeassistant.core import callback
 from homeassistant.data_entry_flow import FlowResult
+from homeassistant.helpers import selector
 
 from .const import (
-    CONF_CHILD_AGE,
-    CONF_CHILD_ICON,
-    CONF_CHILD_ID,
-    CONF_CHILD_NAME,
-    CONF_CHILDREN,
     CONF_LEVEL_CONFIG,
+    CONF_MEMBER_BIRTHDATE,
+    CONF_MEMBER_ICON,
+    CONF_MEMBER_ID,
+    CONF_MEMBER_NAME,
+    CONF_MEMBERS,
     CONF_POINTS_PER_LEVEL,
     CONF_TASK_ASSIGNED_TO,
     CONF_TASK_CATEGORY,
@@ -26,11 +28,10 @@ from .const import (
     CONF_TASK_NAME,
     CONF_TASK_POINTS,
     CONF_TASKS,
-    DEFAULT_CHILD_ICON,
+    DEFAULT_MEMBER_ICON,
     DEFAULT_POINTS_PER_LEVEL,
     DEFAULT_TASK_ICON,
     DOMAIN,
-    TASK_CATEGORIES,
 )
 
 _LOGGER = logging.getLogger(__name__)
@@ -43,7 +44,7 @@ class ChampConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):  # type: ignore
 
     def __init__(self) -> None:
         """Initialize the config flow."""
-        self._children: list[dict[str, Any]] = []
+        self._members: list[dict[str, Any]] = []
         self._tasks: list[dict[str, Any]] = []
         self._level_config: dict[str, Any] = {
             CONF_POINTS_PER_LEVEL: DEFAULT_POINTS_PER_LEVEL
@@ -55,7 +56,7 @@ class ChampConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):  # type: ignore
         """Handle the initial step."""
         if user_input is not None:
             # Store any initial configuration if needed
-            return await self.async_step_add_child()
+            return await self.async_step_add_member()
 
         return self.async_show_form(
             step_id="user",
@@ -63,66 +64,89 @@ class ChampConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):  # type: ignore
             description_placeholders={"docs_url": "https://github.com/vmerz/ha-champ"},
         )
 
-    async def async_step_add_child(
+    async def async_step_add_member(
         self, user_input: dict[str, Any] | None = None
     ) -> FlowResult:
-        """Handle adding a child."""
+        """Handle adding a member."""
         errors: dict[str, str] = {}
 
         if user_input is not None:
-            # Validate child name
-            if not user_input.get(CONF_CHILD_NAME):
+            # Validate member name
+            if not user_input.get(CONF_MEMBER_NAME):
                 errors["base"] = "name_required"
-            else:
-                # Create child entry
-                child = {
-                    CONF_CHILD_ID: str(uuid.uuid4())[:8],
-                    CONF_CHILD_NAME: user_input[CONF_CHILD_NAME],
-                    CONF_CHILD_AGE: user_input.get(CONF_CHILD_AGE),
-                    CONF_CHILD_ICON: user_input.get(
-                        CONF_CHILD_ICON, DEFAULT_CHILD_ICON
+
+            # Validate birthdate if provided
+            if (
+                CONF_MEMBER_BIRTHDATE in user_input
+                and user_input[CONF_MEMBER_BIRTHDATE]
+            ):
+                birthdate_str = user_input[CONF_MEMBER_BIRTHDATE]
+                try:
+                    birthdate = datetime.fromisoformat(birthdate_str).date()
+                    today = date.today()
+                    min_date = date(today.year - 120, today.month, today.day)
+
+                    if birthdate > today:
+                        errors[CONF_MEMBER_BIRTHDATE] = "future_date"
+                    elif birthdate < min_date:
+                        errors[CONF_MEMBER_BIRTHDATE] = "too_old"
+
+                except ValueError:
+                    errors[CONF_MEMBER_BIRTHDATE] = "invalid_date"
+
+            # Only create member if no errors
+            if not errors:  # ← Fixed!
+                member = {
+                    CONF_MEMBER_ID: str(uuid.uuid4())[:8],
+                    CONF_MEMBER_NAME: user_input[CONF_MEMBER_NAME],
+                    CONF_MEMBER_BIRTHDATE: user_input.get(CONF_MEMBER_BIRTHDATE),
+                    CONF_MEMBER_ICON: user_input.get(
+                        CONF_MEMBER_ICON, DEFAULT_MEMBER_ICON
                     ),
                 }
-                self._children.append(child)
+                self._members.append(member)
 
-                _LOGGER.debug("Added child: %s", child[CONF_CHILD_NAME])
+                _LOGGER.debug("Added member: %s", member[CONF_MEMBER_NAME])
 
-                # Ask if user wants to add another child or continue
-                return await self.async_step_add_another_child()
+                return await self.async_step_add_another_member()
 
         return self.async_show_form(
-            step_id="add_child",
+            step_id="add_member",
             data_schema=vol.Schema(
                 {
-                    vol.Required(CONF_CHILD_NAME): str,
-                    vol.Optional(CONF_CHILD_AGE): vol.All(
-                        vol.Coerce(int), vol.Range(min=1, max=18)
+                    vol.Required(CONF_MEMBER_NAME): str,
+                    vol.Optional(CONF_MEMBER_BIRTHDATE): selector.DateSelector(
+                        selector.DateSelectorConfig()
                     ),
-                    vol.Optional(CONF_CHILD_ICON, default=DEFAULT_CHILD_ICON): str,
+                    vol.Optional(
+                        CONF_MEMBER_ICON, default=DEFAULT_MEMBER_ICON
+                    ): selector.IconSelector(
+                        selector.IconSelectorConfig(placeholder="mdi:account")
+                    ),
                 }
             ),
             errors=errors,
         )
 
-    async def async_step_add_another_child(
+    async def async_step_add_another_member(
         self, user_input: dict[str, Any] | None = None
     ) -> FlowResult:
-        """Ask if user wants to add another child."""
+        """Ask if user wants to add another member."""
         if user_input is not None:
             if user_input.get("add_another"):
-                return await self.async_step_add_child()
+                return await self.async_step_add_member()
             return await self.async_step_add_task()
 
         return self.async_show_form(
-            step_id="add_another_child",
+            step_id="add_another_member",
             data_schema=vol.Schema(
                 {
                     vol.Required("add_another", default=False): bool,
                 }
             ),
             description_placeholders={
-                "children_count": str(len(self._children)),
-                "children_names": ", ".join(c[CONF_CHILD_NAME] for c in self._children),
+                "members_count": str(len(self._members)),
+                "members_names": ", ".join(c[CONF_MEMBER_NAME] for c in self._members),
             },
         )
 
@@ -146,7 +170,7 @@ class ChampConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):  # type: ignore
                     CONF_TASK_ICON: user_input.get(CONF_TASK_ICON, DEFAULT_TASK_ICON),
                     CONF_TASK_POINTS: user_input[CONF_TASK_POINTS],
                     CONF_TASK_CATEGORY: user_input.get(CONF_TASK_CATEGORY, "other"),
-                    CONF_TASK_ASSIGNED_TO: ["all"],  # Default to all children
+                    CONF_TASK_ASSIGNED_TO: ["all"],  # Default to all members
                 }
                 self._tasks.append(task)
 
@@ -166,9 +190,30 @@ class ChampConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):  # type: ignore
                     vol.Required(CONF_TASK_POINTS, default=5): vol.All(
                         vol.Coerce(int), vol.Range(min=1, max=100)
                     ),
-                    vol.Optional(CONF_TASK_ICON, default=DEFAULT_TASK_ICON): str,
-                    vol.Optional(CONF_TASK_CATEGORY, default="other"): vol.In(
-                        TASK_CATEGORIES
+                    vol.Optional(
+                        CONF_TASK_ICON, default=DEFAULT_TASK_ICON
+                    ): selector.IconSelector(
+                        selector.IconSelectorConfig()  # ← Changed!
+                    ),
+                    vol.Optional(
+                        CONF_TASK_CATEGORY, default="other"
+                    ): selector.SelectSelector(
+                        selector.SelectSelectorConfig(
+                            options=[
+                                selector.SelectOptionDict(
+                                    value="chores", label="chores"
+                                ),
+                                selector.SelectOptionDict(
+                                    value="learning", label="learning"
+                                ),
+                                selector.SelectOptionDict(
+                                    value="health", label="health"
+                                ),
+                                selector.SelectOptionDict(value="other", label="other"),
+                            ],
+                            mode=selector.SelectSelectorMode.DROPDOWN,
+                            translation_key="task_category",  # ← Key for translations
+                        )
                     ),
                 }
             ),
@@ -225,9 +270,9 @@ class ChampConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):  # type: ignore
         """Finish configuration."""
         # Create the config entry
         return self.async_create_entry(
-            title=f"CHAMP ({len(self._children)} children)",
+            title=f"CHAMP ({len(self._members)} members)",
             data={
-                CONF_CHILDREN: self._children,
+                CONF_MEMBERS: self._members,
                 CONF_TASKS: self._tasks,
                 CONF_LEVEL_CONFIG: self._level_config,
             },

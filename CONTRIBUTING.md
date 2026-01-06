@@ -367,7 +367,7 @@ ha-champ-project/
    ```python
    async def test_new_sensor(hass, setup_integration):
        """Test new sensor."""
-       state = hass.states.get("sensor.champ_child_new")
+       state = hass.states.get("sensor.champ_member_new")
        assert state is not None
    ```
 

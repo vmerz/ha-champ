@@ -10,23 +10,23 @@ cp -r custom_components/champ /config/custom_components/
 
 ## Entity Naming Pattern
 
-### Sensors (per child)
+### Sensors (per member)
 ```
-sensor.champ_{child_id}_points               # Current points
-sensor.champ_{child_id}_level                # Current level  
-sensor.champ_{child_id}_points_to_next_level # Progress
+sensor.champ_{member_id}_points               # Current points
+sensor.champ_{member_id}_level                # Current level  
+sensor.champ_{member_id}_points_to_next_level # Progress
 ```
 
-### Switches (per child per task)
+### Switches (per member per task)
 ```
-switch.champ_{child_id}_{task_id}            # Task switch
+switch.champ_{member_id}_{task_id}            # Task switch
 ```
 
 ## Configuration Flow Steps
 
 1. **User** - Welcome screen
-2. **Add Child** - Name, age, icon
-3. **Add Another Child?** - Yes/No
+2. **Add Member** - Name, birthdate, icon
+3. **Add Another Member?** - Yes/No
 4. **Add Task** - Name, points, icon, category
 5. **Add Another Task?** - Yes/No
 6. **Level Config** - Points per level (default: 50)
@@ -34,7 +34,7 @@ switch.champ_{child_id}_{task_id}            # Task switch
 
 ## Example Entities
 
-Child: "John", Task: "Dishwasher" (5 points)
+Member: "John", Task: "Dishwasher" (5 points)
 
 ```
 sensor.champ_john_points                     # 0 → 5 → 10...
@@ -45,10 +45,10 @@ switch.champ_john_dishwasher                 # Toggle to award 5 pts
 
 ## Task Completion Flow
 
-1. User toggles `switch.champ_{child}_{task}` **ON**
+1. User toggles `switch.champ_{member}_{task}` **ON**
 2. Switch turns **ON**
-3. Points awarded to child
-4. Notification sent: "🎉 {Child} hat {points} Punkte verdient!"
+3. Points awarded to member
+4. Notification sent: "🎉 {Member} hat {points} Punkte verdient!"
 5. Switch auto turns **OFF** after 2 seconds
 6. Sensors update
 
@@ -95,12 +95,12 @@ Developer Tools → States → Filter: "champ"
 
 ### Manual Point Award (via coordinator)
 ```python
-await coordinator.award_points(child_id, points)
+await coordinator.award_points(member_id, points)
 ```
 
 ### Reset Points (via coordinator)
 ```python
-await coordinator.reset_points(child_id)
+await coordinator.reset_points(member_id)
 ```
 
 ## Default Values
@@ -108,7 +108,7 @@ await coordinator.reset_points(child_id)
 ```python
 DEFAULT_POINTS_PER_LEVEL = 50
 DEFAULT_TASK_ICON = "mdi:checkbox-marked-circle"
-DEFAULT_CHILD_ICON = "mdi:account-child"
+DEFAULT_MEMBER_ICON = "mdi:account-member"
 UPDATE_INTERVAL = 30  # seconds
 ```
 
@@ -136,7 +136,7 @@ Example: 50 points per level
 Format:
 ```
 Title: 🎉 Punkte verdient!
-Message: {Child} hat {points} Punkte für {task} verdient! 
+Message: {Member} hat {points} Punkte für {task} verdient! 
          Gesamt: {total_points} Punkte (Level {level})
 ```
 

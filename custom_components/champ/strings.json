@@ -3,27 +3,27 @@
     "step": {
       "user": {
         "title": "Set up CHAMP",
-        "description": "Welcome to CHAMP - Chores And Motivation Package! This integration helps gamify household tasks for your children.\n\nLet's get started by adding your children and their tasks.\n\nLearn more at: {docs_url}"
+        "description": "Welcome to CHAMP - Chores And Motivation Package! This integration helps gamify household tasks for your members.\n\nLet's get started by adding your members and their tasks.\n\nLearn more at: {docs_url}"
       },
-      "add_child": {
-        "title": "Add a Child",
-        "description": "Add a child to CHAMP. You can add multiple children.",
+      "add_member": {
+        "title": "Add a Member",
+        "description": "Add a member to CHAMP. You can add multiple members.",
         "data": {
-          "name": "Child's Name",
-          "age": "Age (optional)",
+          "name": "Member's Name",
+          "birthdate": "Birthdate (optional)",
           "icon": "Icon (mdi:icon-name)"
         }
       },
-      "add_another_child": {
-        "title": "Add Another Child?",
-        "description": "You have added {children_count} child(ren): {children_names}\n\nWould you like to add another child?",
+      "add_another_member": {
+        "title": "Add Another Member?",
+        "description": "You have added {members_count} member(ren): {members_names}\n\nWould you like to add another member?",
         "data": {
-          "add_another": "Add another child"
+          "add_another": "Add another member"
         }
       },
       "add_task": {
         "title": "Add a Task",
-        "description": "Create tasks that children can complete to earn points.",
+        "description": "Create tasks that members can complete to earn points.",
         "data": {
           "name": "Task Name",
           "points": "Points Awarded",
