@@ -19,7 +19,7 @@ from .const import (
     CONF_TASK_ID,
     CONF_TASK_NAME,
     CONF_TASK_POINTS,
-    DOMAIN
+    DOMAIN,
 )
 from .coordinator import ChampDataCoordinator
 
@@ -27,9 +27,9 @@ _LOGGER = logging.getLogger(__name__)
 
 
 async def async_setup_entry(
-        hass: HomeAssistant,
-        config_entry: ConfigEntry,
-        async_add_entities: AddEntitiesCallback,
+    hass: HomeAssistant,
+    config_entry: ConfigEntry,
+    async_add_entities: AddEntitiesCallback,
 ) -> None:
     """Set up CHAMP switch platform."""
     coordinator: ChampDataCoordinator = hass.data[DOMAIN][config_entry.entry_id]
@@ -64,11 +64,11 @@ class ChampTaskSwitch(CoordinatorEntity[ChampDataCoordinator], SwitchEntity):
     _attr_is_on = False
 
     def __init__(
-            self,
-            coordinator: ChampDataCoordinator,
-            member_id: str,
-            member_config: dict[str, Any],
-            task_config: dict[str, Any],
+        self,
+        coordinator: ChampDataCoordinator,
+        member_id: str,
+        member_config: dict[str, Any],
+        task_config: dict[str, Any],
     ) -> None:
         """Initialize the task switch."""
         super().__init__(coordinator)
@@ -139,7 +139,7 @@ class ChampTaskSwitch(CoordinatorEntity[ChampDataCoordinator], SwitchEntity):
         self.async_write_ha_state()
 
     async def _send_notification(
-            self, member_name: str, task_name: str, points: int
+        self, member_name: str, task_name: str, points: int
     ) -> None:
         """Send a notification about task completion."""
         total_points = self.coordinator.get_member_points(self._member_id)
